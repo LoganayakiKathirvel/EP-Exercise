@@ -1,0 +1,11 @@
+Manifest-Version: 1.0
+Bundle-SymbolicName: ext-fulfillment;singleton:=true
+Bundle-Name: ext-fulfillment
+Bundle-Version: 0.0.0.2018123107
+Require-Bundle:  org.eclipse.core.runtime,  com.elasticpath.extensions
+ .cm.ext-cm-libs,  org.eclipse.core.databinding,  org.eclipse.core.dat
+ abinding.beans,  org.eclipse.rap.ui,  org.eclipse.rap.ui.forms
+Bundle-ManifestVersion: 2
+Bundle-RequiredExecutionEnvironment: JavaSE-1.8
+Bundle-Vendor: %providerName
+
