@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<definitions xmlns="http://www.elasticpath.com/schema/rest/0.5">
+    <family>
+        <name>terms</name>
+        <description>Family for terms and conditions</description>
+
+        <uri-part>
+            <name>terms-id</name>
+            <description>Identifier for specific terms-and-condition</description>
+            <string/>
+        </uri-part>
+
+        <entity>
+            <name>terms-and-conditions</name>
+            <description>A terms-and-conditions check.</description>
+
+            <property>
+                <name>message</name>
+                <description>The message to display</description>
+                <string/>
+            </property>
+            <property>
+                <name>accepted</name>
+                <description>Whether the terms and conditions have been accepted</description>
+                <boolean/>
+            </property>
+            <entity-type>terms.terms-and-conditions</entity-type>
+        </entity>
+
+        <resource>
+            <name>terms-and-conditions-form</name>
+            <description>A terms-and-conditions resource.</description>
+            <uri>/{base.family}/{base.scope}/{terms-id}</uri>
+            <entity>terms-and-conditions</entity>
+        </resource>
+
+        <relationship>
+            <name>order-to-terms</name>
+            <description>Link from orders resource to the terms resource.</description>
+            <rel>termsandconditions</rel>
+            <from>orders.order</from>
+            <to>terms-and-conditions-form</to>
+        </relationship>
+
+        <advisor>
+            <name>order-terms</name>
+            <description>Advisor for the terms</description>
+            <linked-to>terms-and-conditions-form</linked-to>
+            <advises>orders.order</advises>
+        </advisor>
+
+        <advisor>
+            <name>purchase-form-terms</name>
+            <description>Advisor on the purchase form for missing terms on the order</description>
+            <linked-to>terms-and-conditions-form</linked-to>
+            <blocks>purchases.create-purchase-form</blocks>
+        </advisor>
+
+    </family>
+</definitions>

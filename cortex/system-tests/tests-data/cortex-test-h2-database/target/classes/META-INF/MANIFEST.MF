@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Implementation-Title: Cortex Test Data
+Implementation-Version: 0.0.0-SNAPSHOT
+Archiver-Version: Plexus Archiver
+Built-By: PR00559107
+Implementation-Vendor-Id: com.elasticpath.extensions
+Created-By: Apache Maven 3.3.9
+Build-Jdk: 1.8.0_131
+Implementation-Vendor: Elastic Path Software, Inc
+

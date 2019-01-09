@@ -1,0 +1,135 @@
+//
+// Cortex Studio Wrapper and Panel
+// --------------------------------------------------
+
+.screen-wrapper {
+    margin-top: 20px;
+    .container-fixed();
+
+    @media (min-width: @screen-sm-min) {
+        width: @container-sm;
+    }
+    @media (min-width: @screen-md-min) {
+        width: @container-md;
+    }
+
+    @media (min-width: @screen-lg-min) {
+        width: auto;
+        margin-left: 20px;
+        margin-right: 20px;
+    }
+}
+
+.studio-wrapper{
+    background-color: #777;
+    margin-bottom: 20px;
+    @media screen and (min-width: @screen-sm-min){
+        border-radius: 8px;
+    }
+
+    padding: 15px;
+
+    h1{
+        display: inline-block;
+        color: #ccc;
+        font-size: 24px;
+        margin: 0;
+    }
+
+    .studio-header{
+        margin: 10px 0 20px 0;
+    }
+}
+
+.studio-api-version-report{
+    color: #eee;
+    white-space: pre;
+}
+
+.util-panels{
+    // .make-md-column(3,10px);
+    // margin-left: -5px;
+    // pedding-left: 15px;
+}
+
+.query-panels{
+    // .make-md-column(9, 20px);
+    margin-bottom: 15px;
+}
+
+.studiochrome-module{
+    padding: 10px;
+    background: #666;
+    border-radius: 6px;
+    h3{
+        margin: 0 0 10px 0;
+        font-size: 18px !important;
+        color: #fff
+    }
+}
+
+
+.studio-utilities-wrapper{
+    .studiochrome-module;
+}
+
+.studio-querypane-wrapper{
+    .studiochrome-module;
+}
+
+
+b.caret{
+    font-size: 20px!important;
+}
+
+div.panel{
+    &.panel-default{
+        margin-bottom: 10px;
+        border-color: transparent;
+        border: none;
+        color: #555;
+        background-color: #eee;
+        font-size: 1.2rem;
+
+        // font-family: "Consolas", Monaco, Monospace;
+
+        label{
+            color: #555;
+        }
+
+        .btn{
+            font-family: @font-family-sans-serif;
+            font-weight: bold;
+            .btn-sm;
+
+        }
+
+        &:last-child{
+            margin-bottom: 0;
+        }
+
+        .panel-heading{
+            background-color: #eee;
+            border-bottom: 1px dotted #444;
+        }
+    }
+}
+
+.panel-heading .accordion-toggle:after {
+    /* symbol for "opening" panels */
+    font-family: 'Glyphicons Halflings';  /* essential for enabling glyphicon */
+    content: "\e114";    /* adjust as needed, taken from bootstrap.css */
+    float: right;        /* adjust as needed */
+    color: @brand-primary;         /* adjust as needed */
+}
+.panel-heading .accordion-toggle.collapsed:after {
+    /* symbol for "collapsed" panels */
+    content: "\e079";    /* adjust as needed, taken from bootstrap.css */
+}
+
+
+
+input.form-control:disabled{
+    background-color: #ccc;
+    border: #777;
+}

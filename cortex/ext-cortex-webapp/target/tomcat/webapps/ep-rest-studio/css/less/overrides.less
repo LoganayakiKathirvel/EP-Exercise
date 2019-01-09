@@ -1,0 +1,64 @@
+//
+// Cortex Studio overriding plugin styles
+// --------------------------------------------------
+
+/* Override styles for json-formatter */
+.cm-s-solarized {
+    font-size: 12px;
+    border-radius: 6px;
+
+}
+
+.CodeContainer {
+    font-size: 12px;
+
+    input {
+        .input-sm;
+    }
+    .submit-btn {
+        .btn;
+        .btn-sm;
+        .btn-default;
+    }
+    .String:hover {
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+    .String.expand:hover {
+        text-overflow: inherit;
+        overflow: visible;
+        white-space: pre-wrap;
+    }
+}
+
+/*
+ * overrides styles for bootstrap-select
+ * style dropdown btns like select element
+ */
+.panel .dropdown-btn-wrapper {
+    .btn span {
+        font-weight: normal;
+    }
+    .dropdown-menu {
+        font-size: 12px;
+    }
+}
+
+/*
+ * overrides styles for jquery-ui
+ * making jquery-ui align as closely to bootstrap as possible
+ */
+.ui-widget {
+    font-size: @font-size-base;
+    .ui-widget {
+        font-size: @font-size-base;
+    }
+}
+
+.ui-menu {
+    .ui-menu-item {
+        margin: 2px 0 0; // override default ul
+        padding: @padding-base-vertical @padding-base-horizontal;
+    }
+}

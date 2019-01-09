@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="maven-antrun-" default="main"  >
+<target name="main" unless="true">
+  <ant antfile="D:\EPDEV\Source\ep-commerce\extensions\cortex\system-tests\cucumber/src/main/scripts/validate.xml"/>
+</target>
+</project>

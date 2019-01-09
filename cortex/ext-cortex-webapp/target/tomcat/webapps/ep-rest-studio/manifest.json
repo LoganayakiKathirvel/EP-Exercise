@@ -1,0 +1,19 @@
+{
+	"name": "Cortex Studio",
+	"description": "Elastic Path© REST - Studio Developer Tool",
+	"version": "6.15.0",
+	"manifest_version": 2,
+	"icons": {
+		"128": "images/studio-icon-128x128.png"
+	},
+	"app": {
+		"background": {
+			"scripts": ["chrome-background.js"]
+		}
+	},
+	"permissions": [
+		"storage",
+		"http://*/*",
+		"https://*/*"
+	]
+}

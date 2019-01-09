@@ -1,0 +1,76 @@
+.ObjectBrace {
+	color: #00AA00;
+	font-weight: bold;
+}
+
+.ArrayBrace {
+	color: #0033FF;
+	font-weight: bold;
+}
+
+.PropertyName {
+	color: #830101;
+	font-weight: bold;
+}
+
+.String {
+	color: #007777;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	display: inline-block;
+	overflow: hidden;
+	vertical-align: top;
+	max-width: 80%; 	
+}
+
+.String:hover {
+	text-overflow: inherit;
+	overflow: visible;
+	white-space: pre-wrap;
+	vertical-align: top;
+	max-width: 80%; 		
+}
+
+.Href {
+	color: #0033FF;
+	cursor: pointer;
+	text-decoration: underline;
+}
+
+.Rel {
+	background-color: #ffff99;
+	font-weight: bold;
+}
+
+.Number {
+	color: #AA00AA;
+}
+
+.Boolean {
+	color: #0000FF;
+}
+
+.Function {
+	color: #AA6633;
+	font-style: italic;
+}
+
+.Null {
+	color: #0000FF;
+}
+
+.Comma {
+	color: #000000;
+	font-weight: bold;
+}
+
+PRE.CodeContainer {
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+PRE.CodeContainer img {
+	cursor: pointer;
+	border: none;
+	margin-bottom: -1px;
+}

@@ -1,0 +1,30 @@
+Manifest-Version: 1.0
+Bnd-LastModified: 1545825938230
+Build-Jdk: 1.8.0_131
+Built-By: PR00559107
+Bundle-Description: Elastic Path Corporate Parent Pom
+Bundle-DocURL: http://www.elasticpath.com
+Bundle-ManifestVersion: 2
+Bundle-Name: EP ∷ Helix - Example Resource Prototype
+Bundle-SymbolicName: com.elasticpath.extensions.rest.resource.example
+Bundle-Vendor: Elastic Path Software, Inc
+Bundle-Version: 0.0.0.SNAPSHOT
+Created-By: Apache Maven Bundle Plugin
+Export-Package: com.elasticpath.extensions.rest.resource.example.permiss
+ ions;uses:="com.elasticpath.rest.authorization.parameter,javax.inject,o
+ rg.apache.shiro.subject";version="0.0.0",com.elasticpath.extensions.res
+ t.resource.example.wiring;uses:="com.elasticpath.rest.authorization.par
+ ameter,com.elasticpath.rest.helix.api,com.google.inject.multibindings,j
+ avax.inject";version="0.0.0"
+Import-Package: com.elasticpath.extensions.rest.resource.example.permiss
+ ions,com.elasticpath.rest.authorization.parameter;version="[1.20,2)",co
+ m.elasticpath.rest.helix.api;version="[1.3,2)",com.elasticpath.rest.id;
+ version="[1.20,2)",com.elasticpath.rest.id.transform;version="[1.20,2)"
+ ,com.elasticpath.rest.id.type;version="[1.20,2)",com.elasticpath.rest.i
+ dentity.util;version="[1.20,2)",com.google.inject.binder;version="[1.4,
+ 2)",com.google.inject.multibindings;version="[1.4,2)",javax.inject,org.
+ apache.shiro.subject;version="[1.3,2)"
+Require-Capability: osgi.service;filter:="(objectClass=com.elasticpath.r
+ est.helix.client.extender.BootstrapExtender)";effective:=active,osgi.ee
+ ;filter:="(&(osgi.ee=JavaSE)(version=1.8))"
+Tool: Bnd-3.0.0.201509101326

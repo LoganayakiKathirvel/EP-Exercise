@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<system_configuration>
+
+	<configuration_setting>
+		<name_space>COMMERCE/SYSTEM/EXERCISE/exerciseSetting</name_space>
+		<description>System setting for the training exercise.</description>
+		<default_value type="String">My Exercise Setting Value</default_value>
+		<max_overrides>1</max_overrides>
+		<setting_metadata>
+			<value key="environmentSpecific">false</value>
+			<value key="apiRefreshStrategy">application</value>
+		</setting_metadata>
+	</configuration_setting>
+
+</system_configuration>

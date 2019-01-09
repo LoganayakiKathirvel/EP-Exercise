@@ -1,0 +1,23 @@
+Manifest-Version: 1.0
+Bundle-Description: Elastic Path REST - Studio Developer Tool Web Appl
+ ication
+Bundle-SymbolicName: com.elasticpath.rest.relos.ep-rest-studio
+Archiver-Version: Plexus Archiver
+Built-By: ec2-user
+Bnd-LastModified: 1522189039825
+Bundle-ManifestVersion: 2
+Bundle-DocURL: http://www.elasticpath.com
+Bundle-Vendor: Elastic Path Software, Inc
+Import-Package: org.osgi.framework;version="[1.8,2)",org.osgi.service.
+ http;version="[1.2,2)",org.slf4j;version="[1.7,2)"
+Require-Capability: osgi.ee;filter:="(&(osgi.ee=JavaSE)(version=1.8))"
+Tool: Bnd-3.0.0.201509101326
+Export-Package: com.elasticpath.rest.http;uses:="org.osgi.framework";v
+ ersion="1.20.0"
+Bundle-Name: EP ∷ REST Studio Webapp
+Bundle-Version: 1.20.0.20180327150040-9738f
+Bundle-ClassPath: .,WEB-INF/classes
+Bundle-Activator: com.elasticpath.rest.http.Activator
+Created-By: Apache Maven Bundle Plugin
+Build-Jdk: 1.8.0_144
+

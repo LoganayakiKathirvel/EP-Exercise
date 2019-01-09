@@ -1,0 +1,3 @@
+com\elasticpath\repo\ext\health\monitor\ExtStatusCheckerServlet.class
+com\elasticpath\repo\ext\health\monitor\ApplicationUrlHelper.class
+com\elasticpath\repo\ext\health\monitor\ExtApplicationStatusTargetImpl.class

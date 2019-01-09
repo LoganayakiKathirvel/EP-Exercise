@@ -1,0 +1,2 @@
+com\elasticpath\extensions\rest\resource\example\permissions\ExampleIdParameterStrategy.class
+com\elasticpath\extensions\rest\resource\example\wiring\ServiceWiring.class

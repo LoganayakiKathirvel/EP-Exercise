@@ -1,0 +1,282 @@
+//
+// Cortext Studio LESS Source Imports
+// --------------------------------------------------
+
+@import "variables.less";
+@import "mixins.less";
+@import "load-bootstrap-css-components.less";
+// jq-ui-bootstrap depends on bootstrap
+@import "node_modules/jquery-bootstrap-theme/less/jq-ui-bootstrap/jq-ui-bootstrap.less";
+@import "overrides.less";
+@import "wrapper.less";
+
+//Override image location
+@ui-image-dir:"../img";
+
+
+//
+// Cortext Studio Styles
+// --------------------------------------------------
+
+/* Padding to account for the fixed header */
+body {
+    // padding-top: 25px;
+}
+
+a{
+    &:hover{
+        text-decoration: none;
+    }
+}
+
+hr.dotty{
+    border-top: 1px dotted #666;
+}
+
+img.logo{
+    max-width: 200px;
+    height: auto;
+}
+
+.tab-content,
+.tab-pane{
+    border-radius: 6px;
+}
+
+/* Header brand styling */
+.navbar .brand {
+	color:#fff;
+	font-size: 20px;
+    padding: 10px 0;
+}
+
+.panel{
+    #oAuthSubmit{
+        margin-bottom: 5px;
+        // .pull-right;
+
+    }
+    .oAuth-logout{
+        margin-bottom: 5px;
+        // .pull-right;
+            // padding: 2px 4px;
+
+    }
+    // style dropdown btns like select element
+    .dropdown-btn-wrapper {
+        .btn span{
+          font-weight: normal;
+        }
+        .dropdown-menu{
+          font-size: 12px;
+        }
+    }
+    .form-group{
+        &:last-child{
+            margin-bottom: 0;
+        }
+    }
+    .panel-heading a {
+      display: block;
+      position: relative;
+        .caret {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+        }
+    }
+}
+
+.util-col-label{
+    .make-xs-column(4);
+    .make-sm-column(4);
+    .make-md-column(12);
+
+}
+.util-col-input-wrapper{
+    .make-xs-column(8);
+    .make-sm-column(8);
+    .make-md-column(12);
+
+}
+
+#encodingutil-encode-form{
+    margin-bottom: 10px;
+}
+
+#add-entry-point-form{
+  display: none;
+  &.entry-point-form-opened {
+    display: block;
+  }
+  margin-bottom: 10px;
+  margin-top: 10px;
+  .form-group{
+    margin-bottom: 5px;
+  }
+}
+.toggle-new-entry-point{
+  float:right;
+  &:after{
+    content:"Add new"
+  }
+  &.entry-point-form-opened:after{
+    content: "Hide form";
+  }
+}
+
+.sumbit-buttonwrapper{
+    .pull-right;
+    text-align: right;
+}
+
+#linksInnerMenu {
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    width:650px;
+}
+.util-panels {
+    label {
+        font-weight: normal;
+    }
+    textarea {
+        resize: vertical;
+    }
+    .control-label {
+        text-align: left;
+    }
+    .panel-subheading {
+        margin-top: 15px;
+    }
+}
+
+.oauth-container {
+    position: relative;
+}
+
+#OAuthGreetingContainer, #OAuthFeedbackContainer {
+    display: none;
+    margin-bottom: 15px;
+}
+.greeting-label, .feedback-label {
+    display: inline-block;
+}
+/* oAuth Form Feedback */
+.feedback-label{
+    .text-danger;
+}
+
+#jsonpath-result {
+    margin-top: 15px;
+}
+/* Header requests panel */
+#http-headers-panel .input-group-btn .glyphicon {
+    color: #ccc;
+}
+
+.sample-uri-list{
+    padding-left: 0;
+    list-style-type: none;
+    margin-bottom: 0px;
+}
+
+.sample-uri-btn-group {
+  float: right;
+
+  button {
+    padding: 0;
+  }
+}
+
+#URIBar {
+    margin-bottom: 15px;
+}
+
+#uri {
+    .input-group {
+        width: 100%;
+    }
+
+    .zoom-label {
+        width: 100px;
+        text-align: left;
+    }
+}
+
+
+#structure-tab .form-control {
+    margin-bottom: 10px;
+    width: auto;
+    display: inline-block;
+}
+
+label.inline {
+	display: inline;
+    margin-right: 10px;
+}
+
+.response-container {
+    // margin-bottom: 50px;
+}
+
+/* SVG styles. */
+.link {
+	stroke-width: 2px;
+	stroke: grey;
+	fill: none;
+}
+
+.hard-wrap {
+  word-wrap: break-word;
+}
+
+.node text {
+	stroke: blue;
+	stroke-width:0.5px;
+}
+
+#uriField, #zoomField{
+    font-family: "Consolas", Courier, Monaco, Monospace;
+    // margin-left: 10px;
+}
+
+#toggleSource{
+
+    .btn-codewindow-toggle;
+
+}
+
+
+.input-group-btn{
+    select.form-control{
+        // border-top-right-radius: 0px!important;
+        // margin-right: 6px;
+    }
+}
+
+
+
+.bigslash{
+    position: relative;
+    font-weight: bold;
+    font-size: 14px;
+    top : 1px;
+}
+
+
+.toggle-center{
+    text-align: center;
+    display: block;
+    padding: 5px 0;
+}
+
+.util-collapse-label{
+    font-size: 10px;
+    display: block;
+}
+
+.spin-overlay-anchor {
+  position: relative;
+}

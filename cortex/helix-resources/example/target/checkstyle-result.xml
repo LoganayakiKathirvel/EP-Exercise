@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<checkstyle version="6.11.2">
+<file name="D:\EPDEV\Source\ep-commerce\extensions\cortex\helix-resources\example\src\main\java\com\elasticpath\extensions\rest\resource\example\permissions\ExampleIdParameterStrategy.java">
+</file>
+<file name="D:\EPDEV\Source\ep-commerce\extensions\cortex\helix-resources\example\src\main\java\com\elasticpath\extensions\rest\resource\example\wiring\ServiceWiring.java">
+</file>
+</checkstyle>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_2_0.xsd" version="2.0">
+    <named-query name="FIND_TNC_BY_CODE">
+        <query>
+            SELECT termsAndCondition
+            FROM TermsAndConditionsFlagImpl AS termsAndCondition
+            WHERE termsAndCondition.code = ?1
+        </query>
+    </named-query>
+
+    <named-query name="FIND_ALL_TNCS">
+        <query>
+            SELECT termsAndCondition
+            FROM TermsAndConditionsFlagImpl AS termsAndCondition
+        </query>
+    </named-query>
+</entity-mappings>

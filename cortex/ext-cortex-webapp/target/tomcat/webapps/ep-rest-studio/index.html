@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/html">
+<head>
+    <title>Cortex Studio | Elastic Path</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+
+    <!-- Styles -->
+    <link type="text/css" href="css/bootstrap/bootstrap.min.css" rel="stylesheet"> <!-- managed by grunt/npm -->
+    <link type="text/css" href="css/css/studio.css" rel="stylesheet"> <!-- managed by grunt/npm -->
+    <link type="text/css" href="css/codemirror/codemirror.css" rel="stylesheet"/> <!-- managed by grunt/npm -->
+    <link type="text/css" href="css/codemirror/dialog.css" rel="stylesheet"/> <!-- managed by grunt/npm -->
+    <link type="text/css" href="css/codemirror/matchesonscrollbar.css" rel="stylesheet"/> <!-- managed by grunt/npm -->
+    <link type="text/css" href="css/eclipse.css" rel="stylesheet"/>
+    <link type="text/css" href="css/solarized.css" rel="stylesheet"/>
+    <link type="text/css" href="css/json-formatter.css" rel="stylesheet"/>
+    <link type="text/css" href="css/bootstrap/bootstrap-select.min.css" rel="stylesheet"/> <!-- managed by grunt/npm -->
+
+    <script type="text/javascript" src="js/modernizr-2.6.2/modernizr.custom.js"></script>
+    <script type="text/javascript" src="js/iframeResizer.contentWindow.min.js"></script>
+</head>
+
+<body>
+
+<!-- Modal window for display error message -->
+<div class="modal fade" id="msgModal" tabindex="-1" role="dialog" aria-labelledby="errorMsg" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 id="msgModalTitle" class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+                <p id="msgModalHtml" class="hard-wrap"></p>
+                <p id="msgModalBody" class="hard-wrap"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!--END modal-->
+
+<div class="screen-wrapper" id="container">
+
+<div class="row">
+<div class="col-sm-12 studio-wrapper">
+<div class="row">
+
+<!-- Comment out temporarily to avoid showing double Heading when embedded in Dev Portal -->
+<!-- <div class="col-md-12 studio-header">
+    <img class="logo" src="images/elasticpath-logo-white.png">
+
+    <h1>Cortex Studio</h1>
+    <span class="studio-api-version-report">( API Ver. 1.9.1 )</span>
+</div> -->
+
+<!-- BEGIN LEFT COLUMN -->
+<div class="query-panels col-md-8">
+    <div class="studio-querypane-wrapper">
+        <h3>Request</h3>
+        <!-- URI Bar -->
+        <div id="URIBar">
+            <div id="uri" class="input-append row-fluid">
+                <form>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-btn">
+                                <select id="operationType" class="selectpicker">
+                                    <option id="getURI" value="GET">GET</option>
+                                    <option id="editURI" data-action="EDIT" value="PUT">PUT</option>
+                                    <option id="postURI" data-action="EDIT" value="POST">POST</option>
+                                    <option id="deleteURI" value="DELETE">DELETE</option>
+                                </select>
+                            </div>
+
+                            <input id="uriField" class="form-control " type="text" list="requestStartPointsList"/>
+
+                            <div class="input-group-btn">
+                                <input id="makeRequest" class="btn btn-primary" type="button" value="Submit"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <label for="zoomField" class="input-group-addon zoom-label">Zoom</label>
+                            <input id="zoomField" class="form-control" type="text" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <hr class="dotty">
+
+        <!-- Toggle button to view formatted or raw JSON -->
+        <p><a id="toggleSource" class="" href="#structure-tab" data-toggle="tab">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+            <span class="bigslash">/</span>
+            <span class="glyphicon glyphicon-chevron-right"></span> View Source</a>
+        </p>
+
+        <div class="tab-content response-container" id="tabs">
+            <div class="tab-pane active" id="structure-tab">
+                <div class="row">
+                    <div id="FormattedJson" class="col-md-12 JSON ">
+                        <pre class="CodeContainer solarized dark">(empty)</pre>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-pane" id="source-tab"></div>
+        </div>
+    </div>
+</div>
+<!-- END LEFT COLUMN -->
+
+
+<!-- BEGIN RIGHT COLUMN -->
+<div class="util-panels col-md-4">
+
+<!-- - - - - - - - begin utilities wrapper - - - - - - - -->
+<div class="studio-utilities-wrapper">
+<a class="util-collapse-toggle" data-toggle="collapse" href="#utilDrawer">Collapse Utils</a>
+
+<div id="utilDrawer" class="studio-utilities-collapser panel-group collapse in">
+
+<h3>Utilities</h3>
+<!-- Setup Panel -->
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a class="accordion-toggle collapsed" data-toggle="collapse" href="#setup-panel">
+            Setup<!-- <b class="caret"></b> -->
+        </a>
+    </div>
+    <div id="setup-panel" class="util-panel-body panel-body collapse">
+        <form class="form-horizontal">
+            <div class="form-group">
+                <label for="serverPrefix" class="control-label col-md-4">Cortex server:</label>
+                <div class="col-md-8">
+                    <input id="serverPrefix" type="text" class="form-control input-sm"/>
+                </div>
+
+                <label for="zoomStats" class="control-label col-md-8">Collect Zoom Stats:</label>
+                <div class="col-md-4">
+                    <input id="zoomStats" type="checkbox" class="form-control input-sm"/>
+                </div>
+
+                <label for="removeSelf" class="control-label col-md-8">Hide Zoomed Self:</label>
+                <div class="col-md-4">
+                    <input id="removeSelf" type="checkbox" class="form-control input-sm"/>
+                </div>
+
+                <label for="removeLinks" class="control-label col-md-8">Hide Zoomed Links:</label>
+                <div class="col-md-4">
+                    <input id="removeLinks" type="checkbox" class="form-control input-sm"/>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- End Setup Panel -->
+<!-- OAuth2 Panel -->
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a class="accordion-toggle collapsed oAuth-menu-toggle" data-toggle="collapse" href="#oauth-panel">
+            Authentication<!-- <b class="caret"></b> -->
+        </a>
+    </div>
+    <div id="oauth-panel" class="util-panel-body panel-body collapse">
+        <div class="oauth-container">
+            <div id="OAuthFeedbackContainer">
+                <span class="feedback-label"></span>
+            </div>
+            <div id="OAuthGreetingContainer">
+                <span class="greeting-label"></span>
+            </div>
+            <form id="OAuthForm" class="form-horizontal">
+                <div class="form-group">
+                    <label for="oAuthRole" class="control-label col-md-4">Role:</label>
+
+                    <div class="col-md-8 dropdown-btn-wrapper">
+                        <select id="oAuthRole" class="form-control input-sm">
+                            <option value="PUBLIC">PUBLIC</option>
+                            <option value="REGISTERED">REGISTERED</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="oAuthScope" class="control-label col-md-4">Scope:</label>
+
+                    <div class="col-md-8">
+                        <input id="oAuthScope" list="oAuthScopeList" type="text" class="form-control input-sm">
+                        <datalist id="oAuthScopeList">
+                            <option value="campus">campus</option>
+                            <option value="mobee">mobee</option>
+                        </datalist>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="oAuthUserName" class="control-label col-md-4">Username:</label>
+
+                    <div class="col-md-8">
+                        <input id="oAuthUserName" type="text" class="form-control input-sm" disabled/>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="oAuthPassword" class="control-label col-md-4">Password:</label>
+
+                    <div class="col-md-8">
+                        <input id="oAuthPassword" type="password" class="form-control input-sm" disabled/>
+                    </div>
+                </div>
+
+                <div class="sumbit-buttonwrapper">
+                    <button id="oAuthSubmit" class="btn btn-primary btn-sm" type="submit">Authenticate</button>
+                    <button class="oAuth-logout btn btn-default btn-sm">Revoke Access</button>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+<!-- End OAuth2 Panel -->
+<!-- HTTP Headers Panel -->
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a class="accordion-toggle collapsed" data-toggle="collapse" href="#http-headers-panel">
+            Request Headers<!-- <b class="caret"></b> -->
+        </a>
+    </div>
+    <div id="http-headers-panel" class="util-panel-body panel-body collapse">
+        <div id="http-headers-input" class="input-append row-fluidl">
+            <form class="form-horizontal">
+                <div class="form-group">
+                    <label class="control-label util-col-label" for="dataPolicySegmentsHeader">X-Ep-Data-Policy-Segments:</label>
+
+                    <div class="util-col-input-wrapper">
+                        <div class="input-group">
+                            <input id="dataPolicySegmentsHeader" type="text" class="form-control input-sm"/>
+                            <span class="input-group-btn">
+                                  <button class="btn btn-default btn-sm btn-clear" title="Clear header value"><span
+                                          class="glyphicon glyphicon-remove"></span></button>
+                          </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label util-col-label" for="userIdHeader">X-Ep-User-Id:</label>
+
+                    <div class="util-col-input-wrapper">
+                        <div class="input-group">
+                            <input id="userIdHeader" type="text" class="form-control input-sm"/>
+                          <span class="input-group-btn">
+                                  <button class="btn btn-default btn-sm btn-clear" title="Clear header value"><span
+                                          class="glyphicon glyphicon-remove"></span></button>
+                          </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label util-col-label" for="rolesHeader">X-Ep-User-Roles:</label>
+
+                    <div class="util-col-input-wrapper">
+                        <div class="input-group">
+                            <input id="rolesHeader" type="text" class="form-control input-sm"/>
+                          <span class="input-group-btn">
+                                  <button class="btn btn-default btn-sm btn-clear" title="Clear header value"><span
+                                          class="glyphicon glyphicon-remove"></span></button>
+                          </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label util-col-label" for="scopesHeader">X-Ep-User-Scopes:</label>
+
+                    <div class="util-col-input-wrapper">
+                        <div class="input-group">
+                            <input id="scopesHeader" type="text" class="form-control input-sm"/>
+                            <span class="input-group-btn">
+                                  <button class="btn btn-default btn-sm btn-clear" title="Clear header value"><span
+                                          class="glyphicon glyphicon-remove"></span></button>
+                          </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label util-col-label" for="userTraitsHeader">X-Ep-User-Traits:</label>
+
+                    <div class="util-col-input-wrapper">
+                        <div class="input-group">
+                            <input id="userTraitsHeader" type="text" class="form-control input-sm"/>
+                            <span class="input-group-btn">
+                                  <button class="btn btn-default btn-sm btn-clear" title="Clear header value"><span
+                                          class="glyphicon glyphicon-remove"></span></button>
+                          </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label util-col-label" for="forwardedBaseHeader">X-Forwarded-Base:</label>
+
+                    <div class="util-col-input-wrapper">
+                        <div class="input-group">
+                            <input id="forwardedBaseHeader" type="text" class="form-control input-sm"/>
+                            <span class="input-group-btn">
+                                  <button class="btn btn-default btn-sm btn-clear" title="Clear header value"><span
+                                          class="glyphicon glyphicon-remove"></span></button>
+                          </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label util-col-label" for="authHeader">Authorization:</label>
+
+                    <div class="util-col-input-wrapper">
+                        <div class="input-group">
+                            <input id="authHeader" type="text" class="form-control input-sm"/>
+                            <span class="input-group-btn">
+                                  <button class="btn btn-default btn-sm btn-clear" title="Clear header value"><span
+                                          class="glyphicon glyphicon-remove"></span></button>
+                          </span>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<!-- End HTTP Headers Panel -->
+<!-- SampleURI Panel -->
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a class="accordion-toggle" data-toggle="collapse" href="#sample-uri-panel">
+            Entry Points<!--<b class="caret"></b>-->
+        </a>
+    </div>
+    <div id="sample-uri-panel" class="util-panel-body panel-body collapse in">
+        <label class="control-label">User Entries:</label>
+        <a class="toggle-new-entry-point" href="#"></a>
+        <form id="add-entry-point-form" class="form">
+            <div class="form-group">
+                <input id="custom-start-point-key-field" class="form-control input-sm" type="text" placeholder="Name"/>
+            </div>
+            <div class="form-group">
+                <input id="custom-start-point-url-field" class="form-control input-sm" type="text" placeholder="Path"/>
+            </div>
+            <input id="custom-start-point-add-button" class="btn btn-primary btn-sm" value="Add" type="submit"/>
+        </form>
+        <ul id="CustomSampleUriList" class="sample-uri-list"></ul>
+        <label class="control-label panel-subheading">Server Defaults:</label>
+        <ul id="DefaultSampleUriList" class="sample-uri-list"></ul>
+    </div>
+</div>
+<!-- End SampleURI Panel -->
+<!-- JSONPath Tester Panel -->
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a class="accordion-toggle collapsed" data-toggle="collapse" href="#jsonpath-panel">
+            JSONPath Tester<!-- <b class="caret"></b> -->
+        </a>
+    </div>
+    <div id="jsonpath-panel" class="util-panel-body panel-body collapse">
+        <form>
+            <div class="form-group">
+                <label for="jsonpath-field" class="control-label">JSONPath Expression: <a
+                        href="http://goessner.net/articles/JsonPath" target="_blank"
+                        title="JSONPath documentation"><span class="glyphicon glyphicon-info-sign"></span></a></label>
+                <textarea id="jsonpath-field" rows="3" cols="80" class="form-control input-sm">$.self</textarea>
+            </div>
+            <input class="btn btn-primary" id="jsonpath-button" value="Test" type="button"/>
+        </form>
+
+        <div id="jsonpath-result">
+        </div>
+    </div>
+</div>
+<!-- End JSONPath Tester Panel -->
+<!-- Encoding Utility Panel -->
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <a class="accordion-toggle collapsed" data-toggle="collapse" href="#encoding-panel">
+            Encoding Utility<!-- <b class="caret"></b> -->
+        </a>
+    </div>
+    <div id="encoding-panel" class="util-panel-body panel-body collapse">
+        <form id="encodingutil-encode-form" action="#" class="form-horizontal">
+            <div class="form-group">
+                <label for="encodingutil-code-field" class="control-label util-col-label">Code/GUID</label>
+
+                <div class="util-col-input-wrapper">
+                    <div class="input-group">
+                        <input id="encodingutil-code-field" class="encodingutil-field form-control input-sm"
+                               type="text"/>
+                  <span class="input-group-btn">
+                          <input id="encodingutil-encode-button" class="btn btn-primary btn-sm" value="Encode"
+                                 type="submit"/>
+                  </span>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <form id="encodingutil-decode-form" action="#" class="form-horizontal">
+            <div class="form-group">
+                <label for="encodingutil-encoded-field" class="control-label util-col-label">Encoded ID</label>
+
+                <div class="util-col-input-wrapper">
+                    <div class="input-group">
+                        <input id="encodingutil-encoded-field" class="encodingutil-field form-control input-sm"
+                               type="text"/>
+                  <span class="input-group-btn">
+                          <input id="encodingutil-decode-button" class="btn btn-primary btn-sm" value="Decode"
+                                 type="submit"/>
+                  </span>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<!-- End Encoding Utility Panel -->
+
+</div>
+<!-- end collapser -->
+
+</div>
+<!-- - - - - -end utilities wrapper - - - - - - -->
+</div>
+<!-- END RIGHT COLUMN -->
+
+
+</div>
+<!-- END STUDIO WRAPPER -->
+</div>
+<!-- END STUDIO WRAPPER NESTED ROW -->
+
+</div>
+</div>
+
+<!-- Placed at the end of the document so the pages load faster -->
+<!-- Base32 -->
+<script type="text/javascript" src="js/base32.js"></script>
+
+<!-- jQuery & plugins-->
+<script type="text/javascript" src="js/jquery.min.js"></script> <!-- managed by grunt/npm -->
+<script type="text/javascript" src="js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="js/jquery.browser.min.js"></script> <!-- managed by grunt/npm -->
+<script type="text/javascript" src="js/jquery.history.js"></script>
+<script type="text/javascript" src="js/jquery.blink.js"></script>
+<script type="text/javascript" src="js/jquery.cookie.js"></script> <!-- managed by grunt/npm -->
+<script type="text/javascript" src="js/spin.min.js"></script>
+<!-- jQuery support for spin.js -->
+<script type="text/javascript" src="js/jquery.spin.js"></script>
+
+<!-- Bootstrap & plugins-->
+<!-- this is a custom build bootstrap, only partial functions available-->
+<script src="js/bootstrap/bootstrap.min.js"></script> <!-- managed by grunt/npm -->
+<script src="js/bootstrap/bootstrap-select.min.js"></script> <!-- managed by grunt/npm -->
+
+<!-- JSON -->
+<script type="text/javascript" src="js/json2.js"></script>
+<script type="text/javascript" src="js/jsonpath-0.8.5.js"></script>
+<script type="text/javascript" src="js/formatjson.js"></script>
+<script type="text/javascript" src="js/json-formatter.js"></script>
+
+<!-- CodeMirror -->
+<script type="text/javascript" src="js/codemirror/codemirror.js"></script> <!-- managed by grunt/npm -->
+<script type="text/javascript" src="js/codemirror/javascript.js"></script> <!-- managed by grunt/npm -->
+<script type="text/javascript" src="js/codemirror/dialog.js"></script> <!-- managed by grunt/npm -->
+<script type="text/javascript" src="js/codemirror/search.js"></script> <!-- managed by grunt/npm -->
+<script type="text/javascript" src="js/codemirror/searchcursor.js"></script> <!-- managed by grunt/npm -->
+<script type="text/javascript" src="js/codemirror/match-highlighter.js"></script> <!-- managed by grunt/npm -->
+<script type="text/javascript" src="js/codemirror/matchesonscrollbar.js"></script> <!-- managed by grunt/npm -->
+
+<!--Elastic Path -->
+<script type="text/javascript" src="js/api-connect.js"></script>
+<script type="text/javascript" src="js/authentication.js"></script>
+<script type="text/javascript" src="js/zoom.js"></script>
+<script type="text/javascript" src="js/studio-ui.js"></script>
+
+
+</body>
+</html>

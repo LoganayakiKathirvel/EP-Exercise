@@ -1,0 +1,111 @@
+<?xml version="1.0"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>com.elasticpath.rest.relos</groupId>
+		<artifactId>relos</artifactId>
+		<version>1.20.0.20180327150040-9738f</version>
+	</parent>
+
+	<artifactId>ep-rest-studio</artifactId>
+	<packaging>war</packaging>
+	<name>EP ∷ REST Studio Webapp</name>
+	<description>Elastic Path REST - Studio Developer Tool Web Application</description>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.osgi</groupId>
+			<artifactId>osgi.enterprise</artifactId>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>com.github.eirslett</groupId>
+				<artifactId>frontend-maven-plugin</artifactId>
+				<version>0.0.28</version>
+				<configuration>
+					<workingDirectory>src/main/webapp</workingDirectory>
+					<installDirectory>target</installDirectory>
+				</configuration>
+				<executions>
+					<execution>
+						<id>install node and npm</id>
+						<goals>
+							<goal>install-node-and-npm</goal>
+						</goals>
+						<configuration>
+							<nodeVersion>v4.4.0</nodeVersion>
+							<npmVersion>3.7.2</npmVersion>
+						</configuration>
+					</execution>
+					<execution>
+						<id>npm install</id>
+						<goals>
+							<goal>npm</goal>
+						</goals>
+						<configuration>
+							<arguments>install</arguments>
+						</configuration>
+					</execution>
+
+					<execution>
+						<id>grunt build</id>
+						<goals>
+							<goal>grunt</goal>
+						</goals>
+						<configuration>
+							<arguments>build</arguments>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- TESTME Does this actually work-->
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<configuration>
+					<supportedProjectTypes>
+						<projectType>war</projectType>
+					</supportedProjectTypes>
+					<instructions>
+						<Bundle-ClassPath>.,WEB-INF/classes,{maven-dependencies}</Bundle-ClassPath>
+						<Bundle-Activator>com.elasticpath.rest.http.Activator</Bundle-Activator>
+					</instructions>
+				</configuration>
+				<executions>
+					<execution>
+						<id>bundle-manifest</id>
+						<phase>process-classes</phase>
+						<goals>
+							<goal>manifest</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- Do maven resource filtering on all the webapp resources -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-war-plugin</artifactId>
+				<configuration>
+					<archive>
+						<manifestFile>${project.build.outputDirectory}/META-INF/MANIFEST.MF</manifestFile>
+					</archive>
+					<warSourceExcludes>node_modules/**</warSourceExcludes>
+					<!-- This file contains maven properties that need to be resovled-->
+					<webResources>
+						<resource>
+							<directory>${basedir}/src/main/webapp/</directory>
+							<filtering>true</filtering>
+							<includes>
+								<include>js/api-connect.js</include>
+							</includes>
+						</resource>
+					</webResources>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

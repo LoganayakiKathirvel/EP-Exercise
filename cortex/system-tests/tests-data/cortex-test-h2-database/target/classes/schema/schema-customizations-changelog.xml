@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+	xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd"
+    logicalFilePath="com.elasticpath.extensions/db/ext-database/schema-customizations-changelog.xml">
+
+	<!-- Important:
+	- Table names cannot exceed 30 characters (Oracle limitation)
+	- Column names cannot exceed 30 characters (Oracle limitation)
+	- Index names cannot exceed 18 characters (DB2 limitation)
+
+	 Important:
+	- Using <preCondition> ? read: http://forum.liquibase.org/topic/unexpected-behaviour-of-preconditions-with-updatesql
+	- Using <preCondition> ? Consider adding onUpdateSql="TEST", but understand how it plays with updateSQL!
+	-->
+
+	<!--
+	<changeSet id="1" author="example@example.com">
+		<createTable tableName="TEXAMPLE">
+			<column name="uidpk" type="int">
+				<constraints primaryKey="true" nullable="false"/>
+			</column>
+			<column name="guid" type="varchar(64)"/>
+			<column name="firstname" type="varchar(255)"/>
+			<column name="lastname" type="varchar(255)"/>
+			<column name="username" type="varchar(255)">
+				<constraints unique="true" nullable="false"/>
+			</column>
+			<column name="testid" type="int" />
+		</createTable>
+	</changeSet>
+	-->
+	<changeSet id="tnc_table" author="training@elasticpath.com">
+		<createTable tableName="TTERMSANDCONDITIONS">
+			<column name="uidpk" type="int">
+				<constraints primaryKey="true" nullable="false"/>
+			</column>
+			<column name="guid" type="varchar(64)"/>
+			<column name="code" type="varchar(255)"/>
+		</createTable>
+		<insert tableName="TTERMSANDCONDITIONS">
+			<column name="uidpk" type="int" value="100">
+			</column>
+			<column name="guid" type="varchar(64)" value="100"/>
+			<column name="code" type="varchar(255)" value="generalTerms"/>
+		</insert>
+		<insert tableName="TTERMSANDCONDITIONS">
+			<column name="uidpk" type="int" value="200">
+			</column>
+			<column name="guid" type="varchar(64)" value="200"/>
+			<column name="code" type="varchar(255)" value="specificTerms"/>
+		</insert>
+		<insert tableName="JPA_GENERATED_KEYS">
+			<column name="ID" value="TTERMSANDCONDITIONS" />
+			<column name="LAST_VALUE" valueNumeric="200000" />
+		</insert>
+	</changeSet>
+
+	<changeSet id="enhance_cart_order_schema" author="training@elasticpath.com">
+		<addColumn tableName="TCARTORDER">
+			<column name="EXT_TYPE" type="VARCHAR(20)"/>
+		</addColumn>
+
+		<update tableName="TCARTORDER">
+			<column name="EXT_TYPE" value="TERMS"/>
+		</update>
+
+		<createTable tableName="TCARTORDERTNCS">
+			<column name="UIDPK" type="BIGINT">
+				<constraints nullable="false" primaryKey="true" />
+			</column>
+			<column name="CARTORDER_UID" type="BIGINT">
+				<constraints nullable="false" />
+			</column>
+			<column name="CODE" type="varchar(255)">
+				<constraints nullable="false" />
+			</column>
+			<column name="ACCEPTED" type="INTEGER"/>
+		</createTable>
+
+		<createIndex tableName="TCARTORDERTNCS" indexName="I_CARTORDERTNCS_CARTORDER_UID">
+			<column name="CARTORDER_UID" />
+		</createIndex>
+
+		<addForeignKeyConstraint constraintName="FK_CARTORDERTNCS_CARTORDER" baseTableName="TCARTORDERTNCS" baseColumnNames="CARTORDER_UID"
+								 referencedTableName="TCARTORDER" referencedColumnNames="UIDPK" />
+
+		<insert tableName="JPA_GENERATED_KEYS">
+			<column name="ID" value="TCARTORDERTNCS" />
+			<column name="LAST_VALUE" valueNumeric="200000" />
+		</insert>
+	</changeSet>
+
+</databaseChangeLog>

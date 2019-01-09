@@ -1,0 +1,6 @@
+0:0:0:0:0:0:0:1 - - [03/Jan/2019:11:46:23 +0530] "POST /cortex/oauth2/tokens HTTP/1.1" 401 16 http-bio-9080-exec-4 9914
+0:0:0:0:0:0:0:1 - - [03/Jan/2019:11:46:47 +0530] "GET /cortex/registrations/mobee/newaccount/form?_=1546494721274 HTTP/1.1" 200 464 http-bio-9080-exec-4 15542
+0:0:0:0:0:0:0:1 - - [03/Jan/2019:11:46:47 +0530] "GET /cortex/registrations/mobee/newaccount/form?_=1546494721273 HTTP/1.1" 200 464 http-bio-9080-exec-2 57200
+0:0:0:0:0:0:0:1 - - [03/Jan/2019:11:49:15 +0530] "POST /cortex/registrations/mobee/newaccount/form?followlocation HTTP/1.1" 500 91 http-bio-9080-exec-1 42543
+0:0:0:0:0:0:0:1 - - [03/Jan/2019:11:50:00 +0530] "POST /cortex/registrations/mobee/newaccount/form?followlocation HTTP/1.1" 201 1181 http-bio-9080-exec-10 23582
+0:0:0:0:0:0:0:1 - - [03/Jan/2019:11:50:05 +0530] "GET /cortex/profiles/mobee/guygmyjxmrrwillbguztcljugvtdillbhbrtcllcgzstiyzvga3doy3bge=?_=1546494721275 HTTP/1.1" 200 1181 http-bio-9080-exec-10 4076
